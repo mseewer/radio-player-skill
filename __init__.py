@@ -10,6 +10,7 @@ def startup():
     skill_location = os.path.dirname(__file__)
     #radio_urls.json in format: "name of radio, all matching descriptions" : "actual_url"
     with open(file=skill_location + "/radio_urls.json", mode='r') as file:
+        global URLS
         URLS = json.load(file)
     
 
