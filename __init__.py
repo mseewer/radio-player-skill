@@ -12,8 +12,10 @@ def getURL(message=None):
     with open(file=skill_location + "/radio_urls.json", mode='r') as file:
         URLS = json.load(file)
     default = URLS["default"] #default value
-
-    radio = message.data.get("radio").lower()
+    try:
+        radio = message.data.get("radio").lower()
+    except:
+        radio = ''
     #TODO better recognition of radio, tty with from mycroft.util.parse import fuzzy_match
     if message: 
         for url in URLS:
@@ -26,7 +28,7 @@ class RadioPlayer(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
         self.mediaplayer = VlcService(config={'low_volume': 10, 'duck': True})
-        self.recent_radiochannel = getURL("default") #to get default radio url
+        self.recent_radiochannel = getURL() #to get default radio url
         self.is_playing = False
         self.has_radio = False
 
