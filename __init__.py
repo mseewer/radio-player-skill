@@ -1,14 +1,15 @@
 from mycroft import MycroftSkill, intent_file_handler
 from mycroft.audio.services.vlc import VlcService
 
-import json
+import json, os
 
 #SRF data from: https://www.broadcast.ch/fileadmin/kundendaten/Dokumente/Internet_Streaming/2020_06_links_for_streaming_internet_radio_de_fr_it_V006.pdf.pdf 
 URLS = {}
 
 def getURL(message=None):
+    skill_location = os.path.dirname(__file__)
     #radio_urls.json in format: "name of radio, all matching descriptions" : "actual_url"
-    with open(file="radio_urls.json", mode='r') as file:
+    with open(file=skill_location + "/radio_urls.json", mode='r') as file:
         URLS = json.load(file)
     default = URLS["default"] #default value
 
@@ -46,19 +47,19 @@ class RadioPlayer(MycroftSkill):
     @intent_file_handler('radio.start.intent')
     def start_radio(self, message):
         self.speak_dialog('radio.start')
-        self.play(self, message)
+        self.play(message)
 
     @intent_file_handler('radio.stop.intent')
     def stop_radio(self, message):
-        self.stop(self)
+        self.stop()
         self.speak_dialog('radio.stop')
 
     @intent_file_handler('radio.switch.intent')
     def switch_radio(self, message):
         if (self.mediaplayer.is_playing):
-            self.stop(self)
+            self.stop()
         self.speak_dialog('radio.switch')
-        self.play(self, message)
+        self.play(message)
 
     @intent_file_handler('radio.pause.intent')
     def pause_radio(self, message):
