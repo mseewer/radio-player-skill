@@ -12,6 +12,7 @@ def getURL(message=None):
         URLS = json.load(file)
     default = URLS["default"] #default value
 
+    radio = message.data.get("radio").lower()
     #TODO better recognition of radio, tty with from mycroft.util.parse import fuzzy_match
     if message: 
         for url in URLS:
