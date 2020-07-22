@@ -12,9 +12,9 @@ URLS = {
 
 def getURL(message):
     default = URLS["rro"] #default value
-    for url in URLS:
-        if url in message: 
-            return URLS[url]
+#    for url in URLS:
+#        if url in message:
+#            return URLS[url]
     return default
 
 # def find_mime(url):
@@ -27,7 +27,7 @@ class RadioPlayer(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
         self.mediaplayer = VlcService(config={'low_volume': 10, 'duck': True})
-    
+
 
     @intent_file_handler('player.radio.intent')
     def handle_player_radio(self, message):
@@ -35,7 +35,7 @@ class RadioPlayer(MycroftSkill):
         tracklist = []
         url = getURL(message)
         # mime = find_mime(url)
-        tracklist.append(self.stream_url)
+        tracklist.append(url)
         self.mediaplayer.add_list(tracklist)
         self.mediaplayer.play()
 
