@@ -12,7 +12,7 @@ def startup():
     with open(file=skill_location + "/radio_urls.json", mode='r') as file:
         global URLS
         URLS = json.load(file)
-    
+
 
 def getURL(message=None):
     default = URLS["default"] #default value
@@ -21,9 +21,9 @@ def getURL(message=None):
     except:
         radio = ''
     #TODO better recognition of radio, tty with from mycroft.util.parse import fuzzy_match
-    if message: 
+    if message:
         for url in URLS:
-            for word in message.data["utterance"].lower().split(): 
+            for word in message.data["utterance"].lower().split():
                 if word in url.lower():
                     return URLS[url]
     return default
@@ -65,8 +65,9 @@ class RadioPlayer(MycroftSkill):
 
     @intent_file_handler('radio.stop.intent')
     def stop_radio(self, message):
-        self.stop()
-        self.speak_dialog('radio.stop')
+        if (self.is_playing):
+            self.stop()
+            self.speak_dialog('radio.stop')
 
     @intent_file_handler('radio.switch.intent')
     def switch_radio(self, message):
@@ -88,8 +89,13 @@ class RadioPlayer(MycroftSkill):
         if (self.has_radio):
             self.mediaplayer.resume()
         else:
-            self.log.info('Resume radio failed, try with recent_radiochannel!')
-            self.mediaplayer.play(self.recent_radiochannel)
+            self.log.info('Resume radio failed, try with recent_radiochannel:' + str(self.recent_radiochannel) + " or with default")
+            self.mediaplayer.clear_list()
+            if (self.recent_radiochannel):
+                self.mediaplayer.add_list([self.recent_radiochannel])
+            else:
+                self.mediaplayer.add_list([URLS["default"]])
+            self.mediaplayer.play()
         self.is_playing = True
         self.has_radio = True
 
