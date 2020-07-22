@@ -7,13 +7,13 @@
 dependencies:
 #   # Pip dependencies on PyPI
   python:
-    - python-vlc
+    - requests
 #
 #   # Install packages with the system package manager
 #   # This searches for the provided executable and uses the package names
-  system:
+#   system:
 #     # For simple packages, this is all that is necessary
-    all: vlc
+#    all: vlc
 #
 #     # If the package has a certain name on a different platform:
 #     pkcon: pianobar libpiano-dev  # For the mycroft platform
@@ -21,7 +21,7 @@ dependencies:
 #
 #   # Require certain executables to be in the PATH for the install to succeed
 #   exes:
-    - vlc
+#    - vlc
 #
 #   # Require the installation of other skills before installing this skill
 #   skill:
