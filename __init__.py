@@ -37,6 +37,8 @@ class RadioPlayer(MycroftSkill):
         url = getURL(message)
         self.recent_radiochannel = url
         self.log.info('URL: {}'.format(url))
+        if (self.is_playing):
+            self.stop()
         tracklist.append(url)
         self.mediaplayer.add_list(tracklist)
         self.mediaplayer.play()
