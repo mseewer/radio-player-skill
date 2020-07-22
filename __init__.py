@@ -26,8 +26,9 @@ class RadioPlayer(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
         self.mediaplayer = VlcService(config={'low_volume': 10, 'duck': True})
-        self.recent_radiochannel = ''
+        self.recent_radiochannel = getURL("default") #to get default radio url
         self.is_playing = False
+        self.has_radio = False
 
     def play(self, message):
         tracklist = []
@@ -38,11 +39,13 @@ class RadioPlayer(MycroftSkill):
         self.mediaplayer.add_list(tracklist)
         self.mediaplayer.play()
         self.is_playing = True
+        self.has_radio = True
 
     def stop(self):
         self.mediaplayer.stop()
         self.mediaplayer.clear_list()
         self.is_playing = False
+        self.has_radio = False
 
 
 
@@ -74,15 +77,13 @@ class RadioPlayer(MycroftSkill):
     @intent_file_handler('radio.resume.intent')
     def resume_radio(self, message):
         self.speak_dialog('radio.resume')
-        if (not self.is_playing):
-            try:
-                self.mediaplayer.resume()
-                self.log.info('Resume radio failed, try with recent_radiochannel!')
-            except:
-                self.mediaplayer.play(self.recent_radiochannel)
-            self.is_playing = True
-
-
+        if (self.has_radio):
+            self.mediaplayer.resume()
+        else:
+            self.log.info('Resume radio failed, try with recent_radiochannel!')
+            self.mediaplayer.play(self.recent_radiochannel)
+        self.is_playing = True
+        self.has_radio = True
 
 
 def create_skill():
