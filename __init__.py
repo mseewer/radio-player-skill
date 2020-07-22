@@ -27,6 +27,7 @@ class RadioPlayer(MycroftSkill):
         MycroftSkill.__init__(self)
         self.mediaplayer = VlcService(config={'low_volume': 10, 'duck': True})
         self.recent_radiochannel = ''
+        self.is_playing = False
 
     def play(self, message):
         tracklist = []
@@ -36,10 +37,12 @@ class RadioPlayer(MycroftSkill):
         tracklist.append(url)
         self.mediaplayer.add_list(tracklist)
         self.mediaplayer.play()
+        self.is_playing = True
 
     def stop(self):
         self.mediaplayer.stop()
         self.mediaplayer.clear_list()
+        self.is_playing = False
 
 
 
@@ -56,25 +59,28 @@ class RadioPlayer(MycroftSkill):
 
     @intent_file_handler('radio.switch.intent')
     def switch_radio(self, message):
-        if (self.mediaplayer.is_playing):
+        if (self.is_playing):
             self.stop()
         self.speak_dialog('radio.switch')
         self.play(message)
 
     @intent_file_handler('radio.pause.intent')
     def pause_radio(self, message):
-        if (self.mediaplayer.is_playing):
+        if (self.is_playing):
             self.mediaplayer.pause() # only stop not clear playlist
+            self.is_playing = False
             self.speak_dialog('radio.pause')
 
     @intent_file_handler('radio.resume.intent')
     def resume_radio(self, message):
         self.speak_dialog('radio.resume')
-        try:
-            self.mediaplayer.resume()
-            self.log.info('Resume radio failed, try with recent_radiochannel!')
-        except:
-            self.mediaplayer.play(self.recent_radiochannel)
+        if (not self.is_playing):
+            try:
+                self.mediaplayer.resume()
+                self.log.info('Resume radio failed, try with recent_radiochannel!')
+            except:
+                self.mediaplayer.play(self.recent_radiochannel)
+            self.is_playing = True
 
 
 
