@@ -6,11 +6,14 @@ import json, os
 #SRF data from: https://www.broadcast.ch/fileadmin/kundendaten/Dokumente/Internet_Streaming/2020_06_links_for_streaming_internet_radio_de_fr_it_V006.pdf.pdf 
 URLS = {}
 
-def getURL(message=None):
+def startup():
     skill_location = os.path.dirname(__file__)
     #radio_urls.json in format: "name of radio, all matching descriptions" : "actual_url"
     with open(file=skill_location + "/radio_urls.json", mode='r') as file:
         URLS = json.load(file)
+    
+
+def getURL(message=None):
     default = URLS["default"] #default value
     try:
         radio = message.data.get("radio").lower()
@@ -28,7 +31,7 @@ class RadioPlayer(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
         self.mediaplayer = VlcService(config={'low_volume': 10, 'duck': True})
-        self.recent_radiochannel = getURL() #to get default radio url
+        self.recent_radiochannel = URLS["default"]
         self.is_playing = False
         self.has_radio = False
 
@@ -91,5 +94,6 @@ class RadioPlayer(MycroftSkill):
 
 
 def create_skill():
+    startup()
     return RadioPlayer()
 
