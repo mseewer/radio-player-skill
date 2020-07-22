@@ -20,7 +20,7 @@ dependencies:
 #     apt-get: vlc
 #
 #   # Require certain executables to be in the PATH for the install to succeed
-#   exes:
+  exes:
     - vlc
 #
 #   # Require the installation of other skills before installing this skill
