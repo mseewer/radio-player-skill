@@ -1,0 +1,13 @@
+{
+    "rro" : "https://streams.rro.ch/rro.mp3?usid=0-0-H-M-A-01", 
+    "srf1" : "http://stream.srg-ssr.ch/drs1/aacp_96.m3u",
+    "srf2, kultur": "http://stream.srg-ssr.ch/drs2/aacp_96.m3u",
+    "srf3": "http://stream.srg-ssr.ch/drs3/aacp_96.m3u",
+    "srf4": "http://stream.srg-ssr.ch/drs4news/aacp_96.m3u",
+    "srf musikwelle, tradition, folklore": "http://stream.srg-ssr.ch/drsmw/aacp_96.m3u",
+    "srf virus": "http://stream.srg-ssr.ch/drsvirus/aacp_96.m3u",
+    "swiss classic, klassische musik, klassik": "http://stream.srg-ssr.ch/rsc_de/aacp_96.m3u",
+    "swiss jazz, jazz, soul, blues" : "http://stream.srg-ssr.ch/rsj/aacp_96.m3u",
+    "swiss pop, pop, softrock": "http://stream.srg-ssr.ch/rsp/aacp_96.m3u",
+    "default" : "https://streams.rro.ch/rro.mp3?usid=0-0-H-M-A-01"
+}
