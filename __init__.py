@@ -13,7 +13,7 @@ class RadioPlayer(MycroftSkill):
         url = 'http://streaming.swisstxt.ch/m/rro/aac_32'
 
         #define VLC instance
-        instance = vlc.Instance('--input-repeat=-1', '--fullscreen')
+        instance = vlc.Instance()
 
         #Define VLC player
         player=instance.media_player_new()

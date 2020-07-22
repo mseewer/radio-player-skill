@@ -4,25 +4,24 @@
 #
 # To use this file, uncomment the lines you need, and fill in the appropriate information.
 #
-# dependencies:
+dependencies:
 #   # Pip dependencies on PyPI
-#   python:
-#     - requests
-#     - gensim
+  python:
+    - python-vlc
 #
 #   # Install packages with the system package manager
 #   # This searches for the provided executable and uses the package names
-#   system:
+  system:
 #     # For simple packages, this is all that is necessary
-#     all: pianobar piano-dev
+    all: vlc
 #
 #     # If the package has a certain name on a different platform:
 #     pkcon: pianobar libpiano-dev  # For the mycroft platform
-#     apt-get: pianobar libpiano-dev  # For Ubuntu/Debian
+#     apt-get: vlc
 #
 #   # Require certain executables to be in the PATH for the install to succeed
 #   exes:
-#     - pianobar
+    - vlc
 #
 #   # Require the installation of other skills before installing this skill
 #   skill:
