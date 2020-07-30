@@ -1,4 +1,4 @@
-(radio | ) {radio}
+radio {radio}
 (spiel | starte) (radio | ) {radio}
 schalte (radio | ) {radio} ein
 
