@@ -4,6 +4,9 @@ Plays radio
 ## About
 Plays the radio channel that you wish
 
+##IMPORTANT
+please run requirements.sh to install vlc on mycroft, so that the radio stream can be played
+
 ## Examples
 * "Radio"
 * "Spiel radio"
